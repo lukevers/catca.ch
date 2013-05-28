@@ -1,2 +1,5 @@
 # Node Packages
 node_modules
+
+# JSON files
+config.json
