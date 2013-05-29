@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/*
+==============================
+           SEARCH
+==============================
+*/
+
+.center {
+    text-align: center;
+}
+
+#search {
+    margin-top: 10px;
+    width: 300px;
+}
+
+#slogan {
+    color: #AAA;
+    padding: 5px;
+    cursor: pointer;
+}
