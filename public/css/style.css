@@ -10,6 +10,14 @@
 
 @charset "UTF-8";
 
+a {
+    color: #49afcd;
+}
+
+a:hover {
+    color: #AAA;
+}
+
 /*
 ==============================
            SEARCH
@@ -29,4 +37,43 @@
     color: #AAA;
     padding: 5px;
     cursor: pointer;
+}
+
+.links li {
+    display: inline-block;
+}
+
+.links {
+    color: #AAA;
+}
+
+/*
+==============================
+         SIGN UP/IN
+==============================
+*/
+
+.center_h {
+    text-align: center;
+    color: #AAA;
+}
+
+.signinup {
+    display: block !important;
+    width: 300px;
+    padding: 10px !important;
+}
+
+.form {
+    background-color: #F9F9F9;
+    padding: 20px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #CCC;
+    box-shadow: 0px 0px 5px #DDD;
+}
+
+.left_hook {
+    text-align: left;
 }

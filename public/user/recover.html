@@ -13,22 +13,18 @@
   </head>
   <body>
     <div class="center">
-      <h1>Cat Cache!</h1>
-      <div id="slogan">
-	Slogan
+      <h1>Recover</h1><br/>
+      <form action="/recover" method="post" class="form forgot" name="recoverform">
+        <input type="text" name="username" autocomplete="on" placeholder="Username or Email" class="signinup" autofocus/>
+	<div class="left_hook">
+          <input type="submit" name="submit" class="btn btn-info" value="Reset Password"/>
+	</div>
+      </form>
+      <div class="center_h">
+        <a href="/">Home</a> &mdash;
+        <a href="/user/signin.html">Sign in</a> &mdash;
+        <a href="/user/signup.html">Sign up</a>
       </div>
-      <input type="text" placeholder="Search for cats!" id="search">
-      <div class="btn btn-info" id="submit" onclick="searchForKittens();">Search</div>
-      <ul class="links">
-	<script type="text/javascript">
-	  if (loggedin) {
-	    $('.links').append('<li><a href="/logout.html">Sign Out</a>');
-	  } else {
-	    $('.links').append('<li><a href="/user/signup.html">Sign Up</a></li> - ');
-	    $('.links').append('<li><a href="/user/signin.html">Sign In</a></li>');
-	  }
-	</script>
-      </ul>
     </div>
   </body>
 </html>
