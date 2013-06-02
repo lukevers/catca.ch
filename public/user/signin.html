@@ -14,18 +14,21 @@
   <body>
     <div class="center">
       <h1>Sign In</h1><br/>
-        <form action="/user/signin" method="post" class="form" name="signinform">
-	  <input type="text" name="unamemail" autocomplete="on" placeholder="Username or Email" class="signinup" autofocus/>
-          <input type="password" name="password" placeholder="Password" class="signinup"/>
-	  <div class="left_hook">
-            <input type="submit" name="submit" class="btn btn-info" value="Sign In"/>
-	  </div>
-        </form>
-        <div class="center_h">
-            <a href="/">Home</a> &mdash;
-            <a href="/user/recover.html">Forgot your password?</a> &mdash;
-            <a href="/user/signup.html">Sign up</a>
-        </div>
+      <div class="alert alert-error" id="invalid">
+	Invalid username or password
+      </div>
+      <form action="/user/signin" method="post" class="form" name="signinform">
+	<input type="text" name="unamemail" autocomplete="on" placeholder="Username or Email" class="signinup" autofocus/>
+        <input type="password" name="password" placeholder="Password" class="signinup"/>
+	<div class="left_hook">
+          <input type="submit" name="submit" class="btn btn-info" value="Sign In"/>
+	</div>
+      </form>
+      <div class="center_h">
+        <a href="/">Home</a> &mdash;
+        <a href="/user/recover.html">Forgot your password?</a> &mdash;
+        <a href="/user/signup.html">Sign up</a>
+      </div>
     </div>
   </body>
 </html>

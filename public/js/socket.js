@@ -9,11 +9,10 @@
 var loggedin = false;
 
 $(document).ready(function() {
-    // SOCKETS
-    var socket = io.connect(':3000');
-    socket.on('sessionx', function(data) {
+
+    //var socket = io.connect(':3000');
+    //socket.on('signup', function(data) {
+	//	
+    //});
 	
-    });
-
-
 });

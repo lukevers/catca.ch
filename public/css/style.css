@@ -47,6 +47,11 @@ a:hover {
     color: #AAA;
 }
 
+.font {
+	font-family: Catcache;
+	font-weight: 100;	
+}
+
 /*
 ==============================
          SIGN UP/IN
@@ -76,4 +81,12 @@ a:hover {
 
 .left_hook {
     text-align: left;
+}
+
+#invalid {
+    display: none;
+}
+
+#invalid:target {
+    display: block;
 }

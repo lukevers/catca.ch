@@ -14,13 +14,18 @@
   <body>
    <div class="center">
     <h1>Sign Up</h1><br/>
-        <form action="/user/signup" method="post" class="form" name="signupform">
+    	<div class="alert alert-error" id="invalid">
+        	Username or email is already taken!
+   	    </div>
+        <form action="/user/signup" method="post" class="form signupform" name="signupform">
           <input type="email" name="email" autocomplete="on" placeholder="you@domain.com" class="signinup" autofocus/>
             <input type="text" name="username" autocomplete="off" placeholder="username" class="signinup"/>
             <input type="password" name="password" placeholder="password" class="signinup"/>
             <input type="password" name="c_password" placeholder="confirm password" class="signinup"/>
 	    <div class="left_hook">
-            <input type="submit" name="submit" class="btn btn-info" value="Sign Up"/>
+	      <input type="checkbox" id="terms"> I agree to the <a href="#">Terms and Conditions</a>
+	      <br/><br/>
+          <input type="submit" name="submit" id="signup" class="btn btn-info" value="Sign Up" disabled/>
 	    </div>
         </form>
         <div class="center_h">

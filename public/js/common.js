@@ -15,23 +15,32 @@ $(document).ready(function(){
     
     // Random slogan upon click
     $('#slogan').bind('click', function() {
-	randomSlogan();
+		randomSlogan();
     });
     
     // Search for cats on the main page
     $('#search').keyup(function(event){
-	if (event.keyCode == 13) $('#submit').click();
+		if (event.keyCode == 13) $('#submit').click();
+    });
+
+    // Disable/undisable the button to sign up
+    $('#terms').bind('click', function(event) {
+		if ($('#terms').is(':checked')) {
+			$('#signup').removeAttr('disabled');
+		} else {
+			$('#signup').attr('disabled', 'disabled');
+		} 
     });
     
     // Center always
     $(window).resize(function(){
-	$('.center').css({
-	    position:'absolute',
-	    left: ($(window).width() 
-		   - $('.center').outerWidth())/2,
-	    top: ($(window).height() 
-		  - $('.center').outerHeight())/2-50
-	});
+		$('.center').css({
+			position:'absolute',
+			left: ($(window).width() 
+			   - $('.center').outerWidth())/2,
+			top: ($(window).height() 
+			  - $('.center').outerHeight())/2-50
+		});
     });
     $(window).resize();
     $(window).resize();
@@ -47,9 +56,9 @@ function randomSlogan() {
     var nextQuote = quotes[Math.floor(Math.random()*quotes.length)];
     if (thisQuote == nextQuote) randomSlogan();
     else {
-	$('#slogan').fadeTo('normal', 0, function() {
-	    $('#slogan').html(nextQuote);
-	});
-	$('#slogan').fadeTo('normal', 1);
+		$('#slogan').fadeTo('normal', 0, function() {
+			$('#slogan').html(nextQuote);
+		});
+		$('#slogan').fadeTo('normal', 1);
     }
 }
