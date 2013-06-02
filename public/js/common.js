@@ -7,9 +7,10 @@
 // © 2013 Cat Cache!
 
 var quotes = ['Quantifying Cuteness', 'The Computational Cuteness Engine', 'Delivering D\'awws With Precision'];
+var loggedin = (document.cookie.length != 0);
 
 $(document).ready(function(){
-    
+	    
     // Random slogan upon load
     $('#slogan').html(quotes[Math.floor(Math.random()*quotes.length)]);
     
@@ -44,6 +45,7 @@ $(document).ready(function(){
     });
     $(window).resize();
     $(window).resize();
+
 });
 
 function searchForKittens() {

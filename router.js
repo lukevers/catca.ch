@@ -65,9 +65,10 @@ module.exports = function(app, db) {
 					util.log(req.connection.remoteAddress+' tried to login as '+user+' but with the wrong password');
 					res.redirect('/user/signin.html#invalid');
 				} else {
-					// Password correct -- secure session
-					// TODO
-					
+					// Password correct
+					req.session.user = logins[0];
+					res.cookie('user', logins[0].username, { maxAge: new Date(Date.now() + 3600000) });
+					res.cookie('password', logins[0].password, { maxAge: new Date(Date.now() + 3600000) });
 					res.redirect('/');
 				} 
 				});
@@ -82,12 +83,22 @@ module.exports = function(app, db) {
 				res.redirect('/user/signin.html#invalid');
 			} else {
 				// Password correct -- secure session
-				// TODO
-				
+				req.session.user = logins[0];
+				res.cookie('user', logins[0].username, { maxAge: new Date(Date.now() + 3600000) });
+				res.cookie('password', logins[0].password, { maxAge: new Date(Date.now() + 3600000) });
+				res.redirect('/');
 			}
 			});
 		}
 		});    
+	});
+	
+	app.get('/logout', function(req, res) {
+		res.clearCookie('user');
+		res.clearCookie('password');
+		req.session.destroy(function(e){ 
+			res.redirect('/'); 
+		});
 	});
 	
 	// EVERYTHING ELSE	
