@@ -8,9 +8,7 @@
   },
   "dependencies": {
     "express": "3.2.5",
-    "socket.io": "0.9.x",
     "mongojs": "0.7.5",
-    "connect-mongo": "0.3.2",
-    "mongoose": "3.6.11"
+    "jade": "0.31.1"
   }
 }

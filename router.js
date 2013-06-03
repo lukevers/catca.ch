@@ -11,7 +11,11 @@ var pwd = require('./pwd');
 
 module.exports = function(app, db) {
 	
-	// SIGN UP
+	// -----------------------------------
+	// ---------------POSTS---------------
+	// -----------------------------------
+		
+	// Sign Up
 	app.post('/user/signup', function(req, res) {
 		// First check if username/email is already used.
 		db.users.find({username: req.body.username}, function(err, users) {
@@ -24,29 +28,29 @@ module.exports = function(app, db) {
 						db.users.save(newuser, function(err, saved) {
 							if(err || !saved) {
 								util.log('New user not saved: '+req.body.username);
-								res.redirect('/user/signup.html#error');
+								res.redirect('/user/signup#error');
 							} else {
 								util.log('New user saved: '+req.body.username);
-								res.redirect('/user/signin.html');
+								res.redirect('/user/signin');
 							}
 						});
 					} else {
 						// Email exists	
 						util.log(req.connection.remoteAddress+' tried to create an account with an email that is already taken: '+req.body.email);
-						res.redirect('/user/signup.html#invalid');
+						res.redirect('/user/signup#invalid');
 					}
 				});
 			} else {
 				// User exists
 				util.log(req.connection.remoteAddress+' tried to create an account with a username that is already taken: '+req.body.username);
-				res.redirect('/user/signup.html#invalid');
+				res.redirect('/user/signup#invalid');
 			}
 		});
 	});
 	
-	// SIGN IN
+	// Sign In
 	app.post('/user/signin', function(req, res) {
-		// "user" can either be username or email, so we have to check for both
+		// 'user' can either be username or email, so we have to check for both
 		var user = req.body.unamemail;
 		var plain = req.body.password;
 		var hashed = '';
@@ -58,7 +62,7 @@ module.exports = function(app, db) {
 			if (error || emails.length == 0) {
 				// Email not found -- user does not exist
 				util.log(req.connection.remoteAddress+' tried to login using a non-existant username/email of: '+user);
-				res.redirect('/user/signin.html#invalid');
+				res.redirect('/user/signin#invalid');
 			} else {
 				// Email found -- check for password
 				hashed = emails[0].password;
@@ -72,7 +76,7 @@ module.exports = function(app, db) {
 				} else {
 					// Password incorrect
 					util.log(req.connection.remoteAddress+' tried to login as '+user+' but with the wrong password');
-					res.redirect('/user/signin.html#invalid');
+					res.redirect('/user/signin#invalid');
 				} 
 			}
 			});
@@ -89,13 +93,53 @@ module.exports = function(app, db) {
 			} else {
 				// Password incorrect
 				util.log(req.connection.remoteAddress+' tried to login as '+user+' but with the wrong password');
-				res.redirect('/user/signin.html#invalid');
+				res.redirect('/user/signin#invalid');
 			} 
 		}
 		});    
 	});
 	
-	app.get('/logout', function(req, res) {
+	app.post('/user/recover', function(req, res) {
+		// TODO
+	});
+	
+	// -----------------------------------
+	// ---------------GETS----------------
+	// -----------------------------------
+	
+	// Home	
+	app.get('/', function(req, res) {
+		db.users.find({username: req.cookies.user, password: req.cookies.password}, function(err, users) {
+			if (err || users.length == 0) {
+				// Not Logged In
+				res.render('index', { 'loggedin': 'false' });
+			} else {
+				// Logged In
+				res.render('index', { 'loggedin': 'true' });
+			}
+		});
+	});
+	
+	// Sign In
+	app.get('/user/signin', function(req, res) {
+		db.users.find({username: req.cookies.user, password: req.cookies.password}, function(err, users) {
+			if (err || users.length == 0) {
+				// Not Logged In
+				res.render('signin', { 'loggedin': 'false' });
+			} else {
+				// Logged In
+				res.render('signin', { 'loggedin': 'true' });
+			}
+		});
+	});
+	
+	// Sign Up
+	app.get('/user/signup', function(req, res) {
+		res.render('signup');
+	});
+	
+	// Sign Out
+	app.get('/user/signout', function(req, res) {
 		res.clearCookie('user');
 		res.clearCookie('password');
 		req.session.destroy(function(e){ 
@@ -103,9 +147,30 @@ module.exports = function(app, db) {
 		});
 	});
 	
-	// EVERYTHING ELSE	
-	app.get('/', function(req, res) {
-		res.render('index', function(err, html) {
+	// Recover Password
+	app.get('/user/recover', function(req, res) {
+		db.users.find({username: req.cookies.user, password: req.cookies.password}, function(err, users) {
+			if (err || users.length == 0) {
+				// Not Logged In
+				res.render('recover', { 'loggedin': 'false' });
+			} else {
+				// Logged In
+				res.render('recover', { 'loggedin': 'true' });
+			}
 		});
 	});
+	
+	// Account
+	app.get('/user/account', function(req, res) {
+		db.users.find({username: req.cookies.user, password: req.cookies.password}, function(err, users) {
+			if (err || users.length == 0) {
+				// Not Logged In
+				res.render('account', { 'loggedin': 'false' });
+			} else {
+				// Logged In
+				res.render('account', { 'loggedin': 'true' });
+			}
+		});
+	});
+	
 }

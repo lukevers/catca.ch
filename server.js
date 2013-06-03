@@ -8,37 +8,37 @@
 
 var config = require('./config');
 var express = require('express');
-var MongoStore = require('connect-mongo')(express);
-var mongo = require('mongoose');
 var util = require('util');
 
 // Connect to database
 var databaseUrl = 'catcache';
-var collections = ['users', 'sessions'];
+var collections = ['users'];
 var db = require('mongojs').connect(databaseUrl, collections);
-util.log('Connceted to database.');
+util.log('Connceted to database');
 
 // Configure express
 var app = express();	
 app.configure(function() {
+	app.locals.pretty = true;
     app.use(express.static(__dirname + '/public'));
+	app.set('views', __dirname + '/views')
+	app.set('view engine', 'jade')
     app.use(express.bodyParser());
     app.use(express.cookieParser());
-    app.use(express.session({
+	app.use(express.session({
 		secret: config.secret,
-		key: 'express.sid',
 		maxAge: new Date(Date.now() + 3600000),
-		store: new MongoStore({ db: databaseUrl, collection: 'sessions' })
-    	})); 
+	})); 
     app.use(app.router);
 });
-util.log('Configured the application.');
+util.log('Configured the application');
 
-var server = require('http').createServer(app)
+// Create the server
+var server = require('http').createServer(app);
 
 // Add the router
 require('./router')(app, db);
-util.log('Added routes.');
+util.log('Added routes');
 
 // Create the server and listen
 server.listen(config.port, '::');

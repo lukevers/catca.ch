@@ -7,7 +7,6 @@
 // © 2013 Cat Cache!
 
 var quotes = ['Quantifying Cuteness', 'The Computational Cuteness Engine', 'Delivering D\'awws With Precision'];
-var loggedin = (document.cookie.length != 0);
 
 $(document).ready(function(){
 	    
