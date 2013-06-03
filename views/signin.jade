@@ -16,7 +16,7 @@ html
 			h1 Sign In
 			br
 			div(class="alert alert-error", id="invalid")
-				Invalid username or password
+				p Invalid username or password
 			form(action="/user/signin", method="post", class="form", name="signinform")
 				input(type="text", name="unamemail", autocomplete="on", placeholder="Username or Email", class="signinup", autofocus)
 				input(type="password", name="password", placeholder="Password", class="signinup")

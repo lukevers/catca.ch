@@ -16,7 +16,7 @@ html
 			h1 Sign Up
 			br
 			div(class="alert alert-error", id="invalid")
-				Invalid username or password
+				p The username or email has already been taken.
 			form(action="/user/signup", method="post", class="form signupform", name="signupform")
 				input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup", autofocus)
 				input(type="text", name="username", autocomplete="off", placeholder="Username", class="signinup")
