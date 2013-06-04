@@ -105,8 +105,36 @@ module.exports = function(app, db) {
 		});    
 	});
 	
+	// Recover Password
 	app.post('/user/recover', function(req, res) {
 		// TODO
+	});
+	
+	// Change Email
+	app.post('/user/email', function(req, res) {
+		// TODO
+	});
+	
+	// Change Password
+	app.post('/user/password', function(req, res) {
+		// TODO
+	});
+	
+	// Delete Account
+	app.post('/user/delete', function(req, res) {
+		var user = req.cookies.user
+		var pass = req.cookies.password
+		
+		db.users.find({username: user, password: pass}, function(err, users) {
+			if (err || users.length == 0) {
+				util.log(req.connection.remoteAddress+' tried to delte the user '+user+' but had the wrong password stored.');
+				res.redirect('/user/account#invalid');
+			} else {
+				db.users.remove({username: user, password: pass});
+				util.log(req.connection.remoteAddress+' deleted the user '+user);
+				res.redirect('/user/signout');
+			}
+		});	
 	});
 	
 	// -----------------------------------
