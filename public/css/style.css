@@ -128,3 +128,8 @@ a:hover {
 	margin: 25px auto;
 	width: 362px;
 }
+
+.tiny {
+	font-size: 12px;
+	font-weight: 100;
+}

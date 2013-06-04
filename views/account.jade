@@ -16,13 +16,13 @@ html
 			meta(HTTP-EQUIV="REFRESH", content="0; url=/user/signin")
 		else
 			.wrap
-				h2 Account
+				h2 Account 
 				br
 				div(class="alert alert-error", id="invalid")
 					p Something went wrong with your request
 				.form
 					.left_hook
-						h6 Update Email
+						h6 Update Email <span class="tiny">#{email}</span>
 					br
 					form(action="/user/email", method="post")
 						input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup")

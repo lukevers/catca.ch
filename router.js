@@ -112,7 +112,8 @@ module.exports = function(app, db) {
 	
 	// Change Email
 	app.post('/user/email', function(req, res) {
-		// TODO
+		var email = req.body.email;
+		res.redirect('/user/account');
 	});
 	
 	// Change Password
@@ -210,7 +211,7 @@ module.exports = function(app, db) {
 				res.render('account', { 'loggedin': 'false' });
 			} else {
 				// Logged In
-				res.render('account', { 'loggedin': 'true' });
+				res.render('account', { 'loggedin': 'true', 'email': users[0].email });
 			}
 		});
 	});
