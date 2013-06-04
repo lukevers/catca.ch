@@ -22,15 +22,6 @@ $(document).ready(function(){
     $('#search').keyup(function(event){
 		if (event.keyCode == 13) $('#submit').click();
     });
-
-    // Disable/undisable the button to sign up
-    $('#terms').bind('click', function(event) {
-		if ($('#terms').is(':checked')) {
-			$('#signup').removeAttr('disabled');
-		} else {
-			$('#signup').attr('disabled', 'disabled');
-		} 
-    });
     
     // Center always
     $(window).resize(function(){
