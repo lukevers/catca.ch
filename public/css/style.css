@@ -122,3 +122,9 @@ a:hover {
           ACCOUNT
 ==============================
 */
+
+.wrap {
+	text-align: center;
+	margin: 25px auto;
+	width: 362px;
+}

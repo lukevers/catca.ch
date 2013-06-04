@@ -15,7 +15,7 @@ html
 		if loggedin == "false"
 			meta(HTTP-EQUIV="REFRESH", content="0; url=/user/signin")
 		else
-			.center
+			.wrap
 				h2 Account
 				br
 				div(class="alert alert-error", id="invalid")
@@ -52,4 +52,5 @@ html
 				.center_h
 					<a href="/">Home</a> -
 					<a href="/upload">Upload</a> -
-					<a href="/user/likes">Likes</a>
+					<a href="/user/likes">Likes</a> -
+					<a href="/user/signout">Sign Out</a>
