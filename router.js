@@ -23,17 +23,23 @@ module.exports = function(app, db) {
 				// User does not exist -- check email
 				db.users.find({email: req.body.email}, function(errs, emails) {
 					if (errs || emails.length == 0) {
-						// Email does noe exist -- create user
-						var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password)};
-						db.users.save(newuser, function(err, saved) {
-							if(err || !saved) {
-								util.log('New user not saved: '+req.body.username);
-								res.redirect('/user/signup#error');
-							} else {
-								util.log('New user saved: '+req.body.username);
-								res.redirect('/user/signin');
-							}
-						});
+						// Email does noe exist -- check for password correctness with both
+						if (req.body.password == req.body.c_password) {
+							var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password)};
+							db.users.save(newuser, function(err, saved) {
+								if(err || !saved) {
+									util.log('New user not saved: '+req.body.username);
+									res.redirect('/user/signup#error');
+								} else {
+									util.log('New user saved: '+req.body.username);
+									res.redirect('/user/signin');
+								}
+							});
+						} else {
+							// Passwords do not match	
+							util.log(req.connection.remoteAddress+' tried to create an account with two unequal passwords');
+							res.redirect('/user/signup#invalid_password');
+						}
 					} else {
 						// Email exists	
 						util.log(req.connection.remoteAddress+' tried to create an account with an email that is already taken: '+req.body.email);

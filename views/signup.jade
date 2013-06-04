@@ -18,6 +18,8 @@ html
 			br
 			div(class="alert alert-error", id="invalid")
 				p The username or email has already been taken.
+			div(class="alert alert-error", id="invalid_passwords")
+				p Your passwords somehow did not match.
 			form(action="/user/signup", method="post", class="form signupform", name="signupform")
 				input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup", id="email", autofocus)
 				input(type="text", name="username", autocomplete="off", placeholder="Username", id="username", class="signinup")

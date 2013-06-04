@@ -87,11 +87,11 @@ a:hover {
     text-align: left;
 }
 
-#invalid {
+#invalid , #invalid_passwords {
     display: none;
 }
 
-#invalid:target {
+#invalid:target, #invalid_passwords:target {
     display: block;
 }
 
