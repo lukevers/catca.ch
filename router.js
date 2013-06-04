@@ -141,7 +141,15 @@ module.exports = function(app, db) {
 	
 	// Sign Up
 	app.get('/user/signup', function(req, res) {
-		res.render('signup');
+		db.users.find({username: req.cookies.user, password: req.cookies.password}, function(err, users) {
+			if (err || users.length == 0) {
+				// Not Logged In
+				res.render('signup', { 'loggedin': 'false' });
+			} else {
+				// Logged In
+				res.render('signup', { 'loggedin': 'true' });
+			}
+		});
 	});
 	
 	// Sign Out
