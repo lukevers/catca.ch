@@ -15,7 +15,7 @@ $(document).ready(function(){
 		else $('#check2, .check2').hide();
 	});
 	
-	$('#check2').bind('click', function(event) {
+	$('#check2, #check').bind('click', function(event) {
 		if ($('#check').is(' :checked') && $('#check2').is(' :checked')) {
 			$('.btn-danger').removeAttr('disabled');
 		} else {
