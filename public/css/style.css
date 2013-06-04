@@ -94,3 +94,25 @@ a:hover {
 #invalid:target {
     display: block;
 }
+
+.warning {
+	border: 1px solid rgba(255, 200, 0, .9) !important;
+}
+
+.warning:focus {
+	box-shadow: 0px 0px 6px rgba(255, 200, 0, .3) !important;
+}
+
+.pass {
+	color: #AAA;
+}
+
+.pass hr {
+	border: none;
+	background-color: #CCC;
+	height: 1px;
+}
+
+#time {
+	padding-top: 5px;
+}

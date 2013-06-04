@@ -11,6 +11,7 @@ html
 			script(src="/socket.io/socket.io.js")
 			script(src="/js/common.js")
 			script(src="/js/user.js")
+			script(src="/js/password_strength.js")
 	body
 		.center
 			h1 Sign Up
@@ -18,10 +19,16 @@ html
 			div(class="alert alert-error", id="invalid")
 				p The username or email has already been taken.
 			form(action="/user/signup", method="post", class="form signupform", name="signupform")
-				input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup", autofocus)
-				input(type="text", name="username", autocomplete="off", placeholder="Username", class="signinup")
-				input(type="password", name="password", placeholder="Password", class="signinup")
-				input(type="password", name="c_password", placeholder="Confirm Password", class="signinup")
+				input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup", id="email", autofocus)
+				input(type="text", name="username", autocomplete="off", placeholder="Username", id="username", class="signinup")
+				input(type="password", name="password", placeholder="Password", id="password", class="signinup", size="8")
+				input(type="password", name="c_password", placeholder="Confirm Password", id="c_password", class="signinup")
+				.pass 
+					hr
+					| Your password can be broken in 
+					#time
+						| less than one second
+					hr
 				.left_hook
 					input(type="checkbox", id="terms") 
 					|  I agree to the <a href="#">Terms and Conditions</a>

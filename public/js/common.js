@@ -30,7 +30,7 @@ $(document).ready(function(){
 			left: ($(window).width() 
 			   - $('.center').outerWidth())/2,
 			top: ($(window).height() 
-			  - $('.center').outerHeight())/2-50
+			  - $('.center').outerHeight())/2
 		});
     });
     $(window).resize();
