@@ -8,14 +8,82 @@
   © 2013 Cat Cache!
 */
 
-@charset "UTF-8";
+@charset "Utf-8";
+
+body {
+    background-color: #FFF;
+    font-family: Helvetica;
+    font-size: 14px;
+}
 
 a {
-    color: #49afcd;
+    text-decoration: none;
+	color: #49afcd;
 }
 
 a:hover {
     color: #AAA;
+}
+
+/*
+==============================
+           FONTS
+==============================
+*/
+
+@font-face {
+	font-family: Catcache;
+	src: url('/font/CatCache.ttf');
+}
+
+/*
+==============================
+        TRANSITION
+==============================
+*/
+
+a, ul.account a li {
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+/*
+==============================
+          HEADERS
+==============================
+*/
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    margin: 0;
+    font-weight: 900;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+h4 {
+    font-size: 24px;
+}
+
+h5 {
+    font-size: 20px;
+}
+
+h6 {
+    font-size: 16px;
 }
 
 /*
