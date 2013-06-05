@@ -205,10 +205,8 @@ h6 {
 }
 
 .hold_l {
-	width: 249px;
+	width: 200px;
 	float: right;
-	border-left: 1px solid #EEE;
-	height: 471px
 }
 
 .tiny {
@@ -220,7 +218,6 @@ ul.account a li {
 	color: #333;
 	font-weight: 900;
 	padding: 20px 10px;
-	border-bottom: 1px solid #EEE;
 }
 
 ul.account a li:hover {
