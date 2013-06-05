@@ -146,7 +146,34 @@ module.exports = function(app, db) {
 		} else {
 			var newemail = req.body.email;
 			var user = req.session.user;
-			// TODO
+			// If the new email is the same as the old email, don't update it.
+			if (newemail == user.email) {
+				// User tried to change their email to what they already have
+				util.log(req.ip+' tried to change their email to the same thing.');
+				res.redirect('/user/account#invalid');
+			} else {
+				db.users.find({email: newemail}, function(err, emails) {
+					if (err || emails.length == 0) {
+						// Email is not in use -- change email
+						db.users.update({username: user.username, password: user.password}, {$set: {email: newemail}}, function(err, updated) {
+							if (err || updated.length == 0) {
+								// Something went wrong
+								util.log(req.ip+' tried to change their email, but there was an error.');
+								res.redirect('/user/account#invalid');
+							} else {
+								// Email changed
+								util.log(req.ip+' changed their email from '+req.session.user.email+' to '+newemail);
+								req.session.user.email = newemail;
+								res.redirect('/user/account');
+							}
+						});
+					} else {
+						// New email is already in use
+						util.log(req.ip+' tried to change their email to '+newemail+', but that email is already in use');
+						res.redirect('/user/account#invalid');
+					}
+				});
+			}
 		}
 	});
 	
