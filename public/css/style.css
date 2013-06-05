@@ -69,18 +69,15 @@ a:hover {
 
 .signinup {
     display: block !important;
-    width: 300px;
-    padding: 10px !important;
+    width: 100%;
+    padding: 10px 0px 10px 0px !important;
+	text-indent: 10px;
 }
 
 .form {
-    background-color: #F9F9F9;
-    padding: 20px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    border: 1px solid #CCC;
-    box-shadow: 0px 0px 5px #DDD;
+	padding: 25px;
+	background-color: #F9F9F9;
+	width: 350px;
 }
 
 .left_hook {
@@ -124,12 +121,44 @@ a:hover {
 */
 
 .wrap {
-	text-align: center;
 	margin: 25px auto;
-	width: 362px;
+	width: 800px;
+	text-align: center;
+}
+
+.hold_r, .hold_l {
+	background-color: #F9F9F9;
+	display: inline-block;
+}
+
+.hold_r {
+	width: 500px;
+	padding: 25px;
+}
+
+.hold_l {
+	width: 249px;
+	height: 485px;
+	float: right;
+	border-left: 1px solid #EEE;
 }
 
 .tiny {
 	font-size: 12px;
 	font-weight: 100;
+}
+
+ul.account {
+	
+}
+
+ul.account a li {
+	color: #333;
+	font-weight: 900;
+	padding: 20px 10px;
+	border-bottom: 1px solid #EEE;
+}
+
+ul.account a li:hover {
+	background-color: #EEE;
 }
