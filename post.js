@@ -31,33 +31,33 @@ module.exports = function(app, db) {
 								var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password)};
 								db.users.save(newuser, function(err, saved) {
 									if(err || !saved) {
-										util.log('New user not saved: '+req.body.username);
+										util.log(req.ip+ ' tried to create a new user, '+req.body.username+', but recieved an error.');
 										res.redirect('/user/signup#error');
 									} else {
-										util.log('New user saved: '+req.body.username);
+										util.log(req.ip+' created a new user: '+req.body.username);
 										res.redirect('/user/signin');
 									}
 								});
 							} else {
 								// Passwords do not match	
-								util.log(req.connection.remoteAddress+' tried to create an account with two unequal passwords');
+								util.log(req.ip+' tried to create an account with two unequal passwords');
 								res.redirect('/user/signup#invalid_password');
 							}
 						} else {
 							// Email exists	
-							util.log(req.connection.remoteAddress+' tried to create an account with an email that is already taken: '+req.body.email);
+							util.log(req.ip+' tried to create an account with an email that is already taken: '+req.body.email);
 							res.redirect('/user/signup#invalid');
 						}
 					});
 				} else {
 					// User exists
-					util.log(req.connection.remoteAddress+' tried to create an account with a username that is already taken: '+req.body.username);
+					util.log(req.ip+' tried to create an account with a username that is already taken: '+req.body.username);
 					res.redirect('/user/signup#invalid');
 				}
 			});
 		} else {
 			// User is currently signed in and trying to sign up
-			util.log(req.connection.remoteAddress+' tried to sign up when they are already signed in.');
+			util.log(req.ip+' tried to sign up when they are already signed in.');
 			res.redirect('/user/account');
 		}
 	});
@@ -78,7 +78,7 @@ module.exports = function(app, db) {
 				db.users.find({email: user}, function(error, emails) {
 				if (error || emails.length == 0) {
 					// Email not found -- user does not exist
-					util.log(req.connection.remoteAddress+' tried to login using a non-existant username/email of: '+user);
+					util.log(req.ip+' tried to login using a non-existant username/email of: '+user);
 					res.redirect('/user/signin#invalid');
 				} else {
 					// Email found -- check for password
@@ -88,11 +88,11 @@ module.exports = function(app, db) {
 						req.session.user = emails[0];
 						req.session.cookie.originalMaxAge = new Date(Date.now() + (365 * 24 * 60 * 60 * 1000));
 						req.session.cookie.expires = new Date(Date.now() + (365 * 24 * 60 * 60 * 1000));
-						util.log(req.connection.remoteAddress+' logged in as '+user);
+						util.log(req.ip+' logged in as '+user);
 						res.redirect('/');
 					} else {
 						// Password incorrect
-						util.log(req.connection.remoteAddress+' tried to login as '+user+' but with the wrong password');
+						util.log(req.ip+' tried to login as '+user+' but with the wrong password');
 						res.redirect('/user/signin#invalid');
 					} 
 				}
@@ -105,18 +105,18 @@ module.exports = function(app, db) {
 					req.session.user = users[0];
 					req.session.cookie.originalMaxAge = new Date(Date.now() + (365 * 24 * 60 * 60 * 1000));
 					req.session.cookie.expires = new Date(Date.now() + (365 * 24 * 60 * 60 * 1000));
-					util.log(req.connection.remoteAddress+' logged in as '+user);
+					util.log(req.ip+' logged in as '+user);
 					res.redirect('/');
 				} else {
 					// Password incorrect
-					util.log(req.connection.remoteAddress+' tried to login as '+user+' but with the wrong password');
+					util.log(req.ip+' tried to login as '+user+' but with the wrong password');
 					res.redirect('/user/signin#invalid');
 				} 
 			}
 			});    
 		} else {
 			// User is currently signed in and trying to sign in
-			util.log(req.connection.remoteAddress+' tried to sign in when they are already signed in.');
+			util.log(req.ip+' tried to sign in when they are already signed in.');
 			res.redirect('/user/account');
 		}
 	});
@@ -130,7 +130,7 @@ module.exports = function(app, db) {
 			// TODO
 		} else {
 			// User is currently signed in and trying to recover their password
-			util.log(req.connection.remoteAddress+' tried to recover their password when they are already signed in.');
+			util.log(req.ip+' tried to recover their password when they are already signed in.');
 			res.redirect('/user/account');
 		}
 	});
@@ -141,7 +141,7 @@ module.exports = function(app, db) {
 		// So if someone is signed out, redirect them to the signin page
 		if (typeof req.session.user == 'undefined') {
 			// User is currently signed out and trying to change their email
-			util.log(req.connection.remoteAddress+' tried to change their email when they are not signed in.');
+			util.log(req.ip+' tried to change their email when they are not signed in.');
 			res.redirect('/user/signin#not_logged_in');
 		} else {
 			var newemail = req.body.email;
@@ -156,7 +156,7 @@ module.exports = function(app, db) {
 		// So if someone is signed out, redirect them to the signin page
 		if (typeof req.session.user == 'undefined') {
 			// User is currently signed out and trying to change their password
-			util.log(req.connection.remoteAddress+' tried to change their password when they are not signed in.');
+			util.log(req.ip+' tried to change their password when they are not signed in.');
 			res.redirect('/user/signin#not_logged_in');
 		} else {
 			var oldp = req.body.oldp;
@@ -175,7 +175,7 @@ module.exports = function(app, db) {
 		} else {
 			var user = req.session.user;
 			db.users.remove({username: user.username, password: user.password, email: user.email});
-			util.log(req.connection.remoteAddress+' deleted the user '+user);
+			util.log(req.ip+' deleted the user '+user);
 			res.redirect('/user/signout');
 		}
 	});
