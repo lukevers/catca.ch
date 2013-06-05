@@ -206,18 +206,14 @@ h6 {
 
 .hold_l {
 	width: 249px;
-	height: 485px;
 	float: right;
 	border-left: 1px solid #EEE;
+	height: 471px
 }
 
 .tiny {
 	font-size: 12px;
 	font-weight: 100;
-}
-
-ul.account {
-	
 }
 
 ul.account a li {

@@ -16,7 +16,7 @@ html
 		else
 			.wrap
 				.left_hook
-					h2 Account 
+					h2 Account
 				br
 				div(class="alert alert-error", id="invalid")
 					p Something went wrong with your request
@@ -25,7 +25,7 @@ html
 						h6 Update Email <span class="tiny">#{user.email}</span>
 					br
 					form(action="/user/email", method="post")
-						input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup")
+						input(type="email", name="email", autocomplete="on", placeholder="New Email", class="signinup")
 						.left_hook
 							input(type="submit", name="submit", class="btn btn-info", value="Update")
 					.left_hook
@@ -42,7 +42,6 @@ html
 						form(action="/user/delete", method="post")
 							input(type="checkbox", name="check", id="check")
 							span(class="check")  Are you positive?
-							br
 							input(type="checkbox", name="check", id="check2")
 							span(class="check2")  Absolutely sure?
 							br
