@@ -87,11 +87,11 @@ a:hover {
     text-align: left;
 }
 
-#invalid , #invalid_passwords {
+#invalid , #invalid_passwords, #not_logged_in {
     display: none;
 }
 
-#invalid:target, #invalid_passwords:target {
+#invalid:target, #invalid_passwords:target, #not_logged_in:target {
     display: block;
 }
 

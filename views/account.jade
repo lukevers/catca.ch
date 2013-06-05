@@ -22,7 +22,7 @@ html
 					p Something went wrong with your request
 				.form
 					.left_hook
-						h6 Update Email <span class="tiny">#{email}</span>
+						h6 Update Email <span class="tiny">#{user.email}</span>
 					br
 					form(action="/user/email", method="post")
 						input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup")
@@ -32,8 +32,8 @@ html
 						h6 Update Password
 					br
 					form(action="/user/password", method="post")
-						input(type="password", name="old", placeholder="Old Password", class="signinup")
-						input(type="password", name="new", placeholder="New Password", class="signinup")
+						input(type="password", name="oldp", placeholder="Old Password", class="signinup", id="oldp")
+						input(type="password", name="newp", placeholder="New Password", class="signinup", id="newp")
 						.left_hook
 							input(type="submit", name="submit", class="btn btn-info", value="Update")
 					.left_hook
