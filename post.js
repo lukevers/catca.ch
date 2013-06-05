@@ -147,7 +147,8 @@ module.exports = function(app, db) {
 			var newemail = req.body.email;
 			var user = req.session.user;
 			// If the new email is the same as the old email, don't update it.
-			if (newemail == user.email) {
+			// Also, if the email is blank, don't update it.
+			if (newemail == user.email || newemail == '') {
 				// User tried to change their email to what they already have
 				util.log(req.ip+' tried to change their email to the same thing.');
 				res.redirect('/user/account#invalid');
