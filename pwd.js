@@ -10,12 +10,12 @@ var crypto = require('crypto');
 
 exports.saltAndHash = function(pass) {	
 	var salt = generateSalt();
-	return (salt+sha256(pass+salt));
+	return (salt+hash(pass+salt));
 }
 
 exports.validatePass = function(hashedPass, plainPass) {
 	var salt = hashedPass.substr(0,10);
-	var validHash = salt + sha256(plainPass + salt);
+	var validHash = salt + hash(plainPass + salt);
 	return (hashedPass === validHash);
 }
 
@@ -29,6 +29,6 @@ var generateSalt = function() {
 	return salt;
 }
 
-var sha256 = function(str) {
+var hash = function(str) {
 	return crypto.createHash('sha256').update(str).digest('hex');
 }
