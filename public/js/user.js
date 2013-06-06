@@ -36,7 +36,7 @@ $(document).ready(function(){
 		var pwrd2 = $('#c_password').val().trim();
 		var check = $('#terms').is(':checked');
 		
-		if (email != '' && uname != '' && pwrd1 != '' && check) {
+		if (email != '' && uname != '' && pwrd1 != '' && check && pwrd1.length >= 8 && pwrd2.length >= 8) {
 			if (pwrd1 == pwrd2) {
 				$('#signup').removeAttr('disabled');
 			} else {
