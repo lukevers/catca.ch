@@ -57,11 +57,14 @@ html
 					.left_hook
 						h6 Name <span class="tiny">#{user.name}</span>
 					br
+					if user.name != ''
+						div(class="alert alert-info")
+							p If you wish to remove your name, submit an empty form.
 					form(action="/user/name", method="post")
 						input(type="text", name="fname", placeholder="First Name", class="signinup", id="fname")
 						input(type="text", name="lname", placeholder="Last Name", class="signinup", id="lname")
 						.left_hook
-							input(type="submit", name="submit", class="btn btn-info", value="Update", id="newname", disabled)
+							input(type="submit", name="submit", class="btn btn-info", value="Update", id="newname")
 				.hold_l
 					.left_hook
 						h6 Delete Account

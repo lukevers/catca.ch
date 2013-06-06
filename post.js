@@ -235,6 +235,21 @@ module.exports = function(app, db) {
 			var fname = req.body.fname;
 			var lname = req.body.lname;
 			var user = req.session.user;
+			var name = fname.substring(0,1).toUpperCase()+fname.substring(1).toLowerCase()+' '+ lname.substring(0,1).toUpperCase()+lname.substring(1).toLowerCase();
+			if (name == ' ') name = '';
+			db.users.update({username: user.username, email: user.email}, {$set: {name: name}}, function(err, updated) {
+				if (err || updated.length == 0) {
+					// Something went wrong
+					util.log(req.ip+' tried to change their name, but there was an error.');
+					res.redirect('/user/account#invalid');
+				} else {
+					// Name changed
+					util.log(req.ip+' changed their name from '+user.name+' to '+name);
+					req.session.user.name = name;
+					res.redirect('/user/account#success');
+				}
+			});
+
 		}
 	});
 	
