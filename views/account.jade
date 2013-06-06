@@ -27,7 +27,7 @@ html
 					.left_hook
 						h6 Update Email <span class="tiny">#{user.email}</span>
 					br
-					form(action="/user/email", method="post")
+					form(action="/account/email", method="post")
 						input(type="email", name="email", autocomplete="on", placeholder="New Email", id="newe", class="signinup")
 						.left_hook
 							input(type="submit", name="submit", class="btn btn-info", value="Update", id="newemail", disabled)
@@ -35,14 +35,14 @@ html
 					ul(class="account")
 						<a href="/"><li>Home</li></a>
 						<a href="/upload"><li>Upload</li></a>
-						<a href="/user/liked/by/#{user.username}"><li>Likes</li></a>
-						<a href="/user/posted/by/#{user.username}"><li>Posts</li></a>
-						<a href="/user/signout"><li>Sign Out</li></a>
+						<a href="/likes"><li>Likes</li></a>
+						<a href="/posts"><li>Posts</li></a>
+						<a href="/signout"><li>Sign Out</li></a>
 				.hold_l
 					.left_hook
 						h6 Update Password
 					br
-					form(action="/user/password", method="post")
+					form(action="/account/password", method="post")
 						input(type="password", name="oldp", placeholder="Old Password", class="signinup", id="oldp", pattern=".{8,}")
 						input(type="password", name="newp", placeholder="New Password", class="signinup", id="newp", pattern=".{8,}")
 						.pass 
@@ -60,7 +60,7 @@ html
 					if user.name != ''
 						div(class="alert alert-info")
 							p If you wish to remove your name, submit an empty form.
-					form(action="/user/name", method="post")
+					form(action="/account/name", method="post")
 						input(type="text", name="fname", placeholder="First Name", class="signinup", id="fname")
 						input(type="text", name="lname", placeholder="Last Name", class="signinup", id="lname")
 						.left_hook
@@ -69,7 +69,7 @@ html
 					.left_hook
 						h6 Delete Account
 						br
-						form(action="/user/delete", method="post")
+						form(action="/account/delete", method="post")
 							input(type="checkbox", name="check", id="check")
 							span(class="check")  Are you positive?
 							input(type="checkbox", name="check", id="check2")

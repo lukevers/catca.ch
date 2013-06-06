@@ -13,7 +13,7 @@ var util = require('util');
 module.exports = function(app, db) {
 
 	// Sign Up
-	app.post('/user/signup', function(req, res) {
+	app.post('/signup', function(req, res) {
 		// Only users that are signed out can create new accounts
 		// So if someone is signed in, redirect them to their account
 		if (typeof req.session.user == 'undefined') {
@@ -32,38 +32,38 @@ module.exports = function(app, db) {
 								db.users.save(newuser, function(err, saved) {
 									if(err || !saved) {
 										util.log(req.ip+ ' tried to create a new user, '+req.body.username+', but recieved an error.');
-										res.redirect('/user/signup#error');
+										res.redirect('/signup#error');
 									} else {
 										util.log(req.ip+' created a new user: '+req.body.username);
-										res.redirect('/user/signin');
+										res.redirect('/signin');
 									}
 								});
 							} else {
 								// Passwords do not match	
 								util.log(req.ip+' tried to create an account with two unequal passwords');
-								res.redirect('/user/signup#invalid_password');
+								res.redirect('/signup#invalid_password');
 							}
 						} else {
 							// Email exists	
 							util.log(req.ip+' tried to create an account with an email that is already taken: '+req.body.email);
-							res.redirect('/user/signup#invalid');
+							res.redirect('/signup#invalid');
 						}
 					});
 				} else {
 					// User exists
 					util.log(req.ip+' tried to create an account with a username that is already taken: '+req.body.username);
-					res.redirect('/user/signup#invalid');
+					res.redirect('/signup#invalid');
 				}
 			});
 		} else {
 			// User is currently signed in and trying to sign up
 			util.log(req.ip+' tried to sign up when they are already signed in.');
-			res.redirect('/user/account');
+			res.redirect('/account');
 		}
 	});
 	
 	// Sign In
-	app.post('/user/signin', function(req, res) {
+	app.post('/signin', function(req, res) {
 		// Only users that are signed out can sign in
 		// So if someone is signed in, redirect them to their account
 		if (typeof req.session.user == 'undefined') {
@@ -79,7 +79,7 @@ module.exports = function(app, db) {
 				if (error || emails.length == 0) {
 					// Email not found -- user does not exist
 					util.log(req.ip+' tried to login using a non-existant username/email of: '+user);
-					res.redirect('/user/signin#invalid');
+					res.redirect('/signin#invalid');
 				} else {
 					// Email found -- check for password
 					hashed = emails[0].password;
@@ -93,7 +93,7 @@ module.exports = function(app, db) {
 					} else {
 						// Password incorrect
 						util.log(req.ip+' tried to login as '+user+' but with the wrong password');
-						res.redirect('/user/signin#invalid');
+						res.redirect('/signin#invalid');
 					} 
 				}
 				});
@@ -110,19 +110,19 @@ module.exports = function(app, db) {
 				} else {
 					// Password incorrect
 					util.log(req.ip+' tried to login as '+user+' but with the wrong password');
-					res.redirect('/user/signin#invalid');
+					res.redirect('/signin#invalid');
 				} 
 			}
 			});    
 		} else {
 			// User is currently signed in and trying to sign in
 			util.log(req.ip+' tried to sign in when they are already signed in.');
-			res.redirect('/user/account');
+			res.redirect('/account');
 		}
 	});
 	
 	// Recover Password
-	app.post('/user/recover', function(req, res) {
+	app.post('/recover', function(req, res) {
 		// Only users that are signed out can recover their password
 		// So if someone is signed in, redirect them to their account
 		if (typeof req.session.user == 'undefined') {
@@ -131,18 +131,18 @@ module.exports = function(app, db) {
 		} else {
 			// User is currently signed in and trying to recover their password
 			util.log(req.ip+' tried to recover their password when they are already signed in.');
-			res.redirect('/user/account');
+			res.redirect('/account');
 		}
 	});
 	
 	// Change Email
-	app.post('/user/email', function(req, res) {
+	app.post('/account/email', function(req, res) {
 		// Only users that are signed in can change their email
 		// So if someone is signed out, redirect them to the signin page
 		if (typeof req.session.user == 'undefined') {
 			// User is currently signed out and trying to change their email
 			util.log(req.ip+' tried to change their email when they are not signed in.');
-			res.redirect('/user/signin#not_logged_in');
+			res.redirect('/signin#not_logged_in');
 		} else {
 			var newemail = req.body.email;
 			var user = req.session.user;
@@ -151,7 +151,7 @@ module.exports = function(app, db) {
 			if (newemail == user.email || newemail == '') {
 				// User tried to change their email to what they already have
 				util.log(req.ip+' tried to change their email to the same thing.');
-				res.redirect('/user/account#invalid');
+				res.redirect('/account#invalid');
 			} else {
 				db.users.find({email: newemail}, function(err, emails) {
 					if (err || emails.length == 0) {
@@ -160,18 +160,18 @@ module.exports = function(app, db) {
 							if (err || updated.length == 0) {
 								// Something went wrong
 								util.log(req.ip+' tried to change their email, but there was an error.');
-								res.redirect('/user/account#invalid');
+								res.redirect('/account#invalid');
 							} else {
 								// Email changed
 								util.log(req.ip+' changed their email from '+req.session.user.email+' to '+newemail);
 								req.session.user.email = newemail;
-								res.redirect('/user/account#success');
+								res.redirect('/account#success');
 							}
 						});
 					} else {
 						// New email is already in use
 						util.log(req.ip+' tried to change their email to '+newemail+', but that email is already in use');
-						res.redirect('/user/account#invalid');
+						res.redirect('/account#invalid');
 					}
 				});
 			}
@@ -179,13 +179,13 @@ module.exports = function(app, db) {
 	});
 	
 	// Change Password
-	app.post('/user/password', function(req, res) {
+	app.post('/account/password', function(req, res) {
 		// Only users that are signed in can change their password
 		// So if someone is signed out, redirect them to the signin page
 		if (typeof req.session.user == 'undefined') {
 			// User is currently signed out and trying to change their password
 			util.log(req.ip+' tried to change their password when they are not signed in.');
-			res.redirect('/user/signin#not_logged_in');
+			res.redirect('/signin#not_logged_in');
 		} else {
 			var oldp = req.body.oldp;
 			var newp = req.body.newp;
@@ -193,11 +193,11 @@ module.exports = function(app, db) {
 			if (oldp == '' || newp == '') {
 				// Either the old passwod or the new password was empty
 				util.log(req.ip+' tried to change their password, but one of the forms was empty.');
-				res.redirect('/user/account#invalid');
+				res.redirect('/account#invalid');
 			} else if (oldp == newp) {
 				// User tried to change their password to what they already have
 				util.log(req.ip+' tried to change their password to the same thing.');
-				res.redirect('/user/account#invalid');
+				res.redirect('/account#invalid');
 			} else {
 				if (pwd.validatePass(user.password, oldp)) {
 					var newpassword = pwd.saltAndHash(newp);
@@ -205,32 +205,32 @@ module.exports = function(app, db) {
 						if (err || updated.length == 0) {
 							// Something went wrong
 							util.log(req.ip+' tried to change their password, but there was an error.');
-							res.redirect('/user/account#invalid');
+							res.redirect('/account#invalid');
 						} else {
 							// Password changed
 							util.log(req.ip+' changed their password');
 							req.session.user.password = newpassword;
-							res.redirect('/user/account#success');
+							res.redirect('/account#success');
 						}
 					});
 				} else {
 					// User tried to change their password, but the old password
 					// They provided was not the correct password
 					util.log(req.ip+' tried to change their password, but their old password was not correct.');
-					res.redirect('/user/account#invalid');
+					res.redirect('/account#invalid');
 				}
 			}
 		}
 	});
 	
 	// Change Name
-	app.post('/user/name', function(req, res) {
+	app.post('/account/name', function(req, res) {
 		// Only users that are signed in can change their name
 		// So if someone is signed out, redirect them to the signin page
 		if (typeof req.session.user == 'undefined') {
 			// User is currently signed out and trying to change their name
 			util.log(req.ip+' tried to change their name when they are not signed in.');
-			res.redirect('/user/signin#not_logged_in');
+			res.redirect('/signin#not_logged_in');
 		} else {
 			var fname = req.body.fname;
 			var lname = req.body.lname;
@@ -241,12 +241,12 @@ module.exports = function(app, db) {
 				if (err || updated.length == 0) {
 					// Something went wrong
 					util.log(req.ip+' tried to change their name, but there was an error.');
-					res.redirect('/user/account#invalid');
+					res.redirect('/account#invalid');
 				} else {
 					// Name changed
 					util.log(req.ip+' changed their name from '+user.name+' to '+name);
 					req.session.user.name = name;
-					res.redirect('/user/account#success');
+					res.redirect('/account#success');
 				}
 			});
 
@@ -254,16 +254,16 @@ module.exports = function(app, db) {
 	});
 	
 	// Delete Account
-	app.post('/user/delete', function(req, res) {
+	app.post('/account/delete', function(req, res) {
 		// Only users that are signed in can delte their account
 		// So if someone is signed out, redirect them to the signin page
 		if (typeof req.session.user == 'undefined')  {
-			res.redirect('/user/signin#not_logged_in');
+			res.redirect('/signin#not_logged_in');
 		} else {
 			var user = req.session.user;
 			db.users.remove({username: user.username, password: user.password, email: user.email});
 			util.log(req.ip+' deleted the user '+user);
-			res.redirect('/user/signout');
+			res.redirect('/signout');
 		}
 	});
 	
