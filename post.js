@@ -28,7 +28,7 @@ module.exports = function(app, db) {
 							// Someone could edit the javascript and fuck things up -- so we want
 							// To double check anyways.
 							if (req.body.password == req.body.c_password) {
-								var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password)};
+								var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password), name: ''};
 								db.users.save(newuser, function(err, saved) {
 									if(err || !saved) {
 										util.log(req.ip+ ' tried to create a new user, '+req.body.username+', but recieved an error.');
