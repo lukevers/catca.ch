@@ -6,8 +6,6 @@
 //  
 //  © 2013 Cat Cache!
 
-var util = require('util');
-
 module.exports = function(app, db) {
 	
 	require('./post')(app, db);
