@@ -165,7 +165,7 @@ module.exports = function(app, db) {
 								// Email changed
 								util.log(req.ip+' changed their email from '+req.session.user.email+' to '+newemail);
 								req.session.user.email = newemail;
-								res.redirect('/user/account');
+								res.redirect('/user/account#success');
 							}
 						});
 					} else {
@@ -190,7 +190,36 @@ module.exports = function(app, db) {
 			var oldp = req.body.oldp;
 			var newp = req.body.newp;
 			var user = req.session.user;
-			// TODO
+			if (oldp == '' || newp == '') {
+				// Either the old passwod or the new password was empty
+				util.log(req.ip+' tried to change their password, but one of the forms was empty.');
+				res.redirect('/user/account#invalid');
+			} else if (oldp == newp) {
+				// User tried to change their password to what they already have
+				util.log(req.ip+' tried to change their password to the same thing.');
+				res.redirect('/user/account#invalid');
+			} else {
+				if (pwd.validatePass(user.password, oldp)) {
+					var newpassword = pwd.saltAndHash(newp);
+					db.users.update({username: user.username, email: user.email}, {$set: {password: newpassword}}, function(err, updated) {
+						if (err || updated.length == 0) {
+							// Something went wrong
+							util.log(req.ip+' tried to change their password, but there was an error.');
+							res.redirect('/user/account#invalid');
+						} else {
+							// Password changed
+							util.log(req.ip+' changed their password');
+							req.session.user.password = newpassword;
+							res.redirect('/user/account#success');
+						}
+					});
+				} else {
+					// User tried to change their password, but the old password
+					// They provided was not the correct password
+					util.log(req.ip+' tried to change their password, but their old password was not correct.');
+					res.redirect('/user/account#invalid');
+				}
+			}
 		}
 	});
 	

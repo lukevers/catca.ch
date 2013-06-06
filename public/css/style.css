@@ -152,11 +152,17 @@ h6 {
     text-align: left;
 }
 
-#invalid , #invalid_passwords, #not_logged_in {
+#invalid, 
+#invalid_passwords, 
+#not_logged_in,
+#success {
     display: none;
 }
 
-#invalid:target, #invalid_passwords:target, #not_logged_in:target {
+#invalid:target, 
+#invalid_passwords:target, 
+#not_logged_in:target,
+#success:target {
     display: block;
 }
 
@@ -199,12 +205,13 @@ h6 {
 	display: inline-block;
 }
 
-.hold_r {
+.hold_l {
 	width: 500px;
 	padding: 25px;
+	float: left;
 }
 
-.hold_l {
+.hold_r {
 	width: 200px;
 	float: right;
 }
