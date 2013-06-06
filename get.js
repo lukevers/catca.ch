@@ -38,6 +38,21 @@ module.exports = function(app, db) {
 		else res.render('account', { 'loggedin': 'true', 'user': req.session.user });
 	});
 	
+	// Upload
+	app.get('/upload', function(req, res) {
+		
+	});
+	
+	// Liked By
+	app.get('/user/liked/by/*', function(req, res) {
+		
+	});
+	
+	// Posted By
+	app.get('/user/posted/by/*', function(req, res) {
+		
+	});
+	
 	// Sign Out
 	app.get('/user/signout', function(req, res) {
 		req.session.destroy(function(e){ 

@@ -25,6 +25,10 @@ a:hover {
     color: #AAA;
 }
 
+form {
+	margin: 0px;
+}
+
 /*
 ==============================
            FONTS
@@ -203,6 +207,7 @@ h6 {
 .hold_r, .hold_l {
 	background-color: #F9F9F9;
 	display: inline-block;
+	margin-bottom: 25px;
 }
 
 .hold_l {

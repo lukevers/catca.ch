@@ -223,6 +223,21 @@ module.exports = function(app, db) {
 		}
 	});
 	
+	// Change Name
+	app.post('/user/name', function(req, res) {
+		// Only users that are signed in can change their name
+		// So if someone is signed out, redirect them to the signin page
+		if (typeof req.session.user == 'undefined') {
+			// User is currently signed out and trying to change their name
+			util.log(req.ip+' tried to change their name when they are not signed in.');
+			res.redirect('/user/signin#not_logged_in');
+		} else {
+			var fname = req.body.fname;
+			var lname = req.body.lname;
+			var user = req.session.user;
+		}
+	});
+	
 	// Delete Account
 	app.post('/user/delete', function(req, res) {
 		// Only users that are signed in can delte their account
