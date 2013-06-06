@@ -22,7 +22,7 @@ $(document).ready(function(){
 	});
 	
 	// Make the confirmed password a different color if the passwords don't match
-	$('#c_password').bind('keyup', function(event) {
+	$('#c_password, #password').bind('keyup click', function(event) {
 		if ($('#password').val() != $('#c_password').val()) {
 				$('#c_password').addClass('warning');
 		} else $('#c_password').removeClass('warning');
