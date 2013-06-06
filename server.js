@@ -20,17 +20,17 @@ util.log('Connceted to database');
 var app = express();	
 app.configure(function() {
 	app.locals.pretty = true;
-    app.use(express.static(__dirname + '/public'));
+	app.use(express.static(__dirname + '/public'));
 	app.set('views', __dirname + '/views')
 	app.set('view engine', 'jade')
-    app.use(express.bodyParser());
-    app.use(express.cookieParser());
+	app.use(express.bodyParser());
+	app.use(express.cookieParser());
 	app.use(express.session({
 		key: config.key,
 		secret: config.secret,
 		maxAge: new Date(Date.now() + (365 * 24 * 60 * 60 * 1000)),
 	})); 
-    app.use(app.router);
+	app.use(app.router);
 });
 util.log('Configured the application');
 
