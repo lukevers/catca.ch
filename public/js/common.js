@@ -6,7 +6,8 @@
 //
 // © 2013 Cat Cache!
 
-var quotes = ['Quantifying Cuteness', 'The Computational Cuteness Engine', 'Delivering D\'awws With Precision'];
+var quotes = ['Quantifying Cuteness', 'The Computational Cuteness Engine', 'Delivering D\'awws With Precision', 'The Purrfect Website',
+              '110% Cute', '11/11 Doctors Recommend', 'cat cats/* > /dev/brain'];
 
 $(document).ready(function(){
 	    
