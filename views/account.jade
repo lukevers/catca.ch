@@ -57,7 +57,7 @@ html
 					.left_hook
 						h6 Name <span class="tiny">#{user.name}</span>
 					br
-					if user.name != '' || typeof user.name == 'undefined'
+					if user.name != '' || typeof user.name != 'undefined'
 						div(class="alert alert-info")
 							p If you wish to remove your name, submit an empty form.
 					form(action="/user/name", method="post")
