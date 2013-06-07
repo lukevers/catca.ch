@@ -156,6 +156,10 @@ h6 {
     text-align: left;
 }
 
+.right_hook {
+	text-align: right;
+}
+
 #invalid, 
 #invalid_passwords, 
 #not_logged_in,
@@ -234,4 +238,19 @@ ul.account a li {
 
 ul.account a li:hover {
 	background-color: #F6F6F6;
+}
+
+
+/*
+==============================
+           UPLOAD
+==============================
+*/
+
+#filebrowse {
+	display: none;
+}
+
+.files .alert {
+	margin: 5px;
 }
