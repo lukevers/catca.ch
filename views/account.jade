@@ -12,68 +12,65 @@ html
 			script(src="/js/password_strength.js")
 			script(src="/js/account.js")
 	body
-		if loggedin == "false"
-			meta(HTTP-EQUIV="REFRESH", content="0; url=/user/signin")
-		else
-			.wrap
+		.wrap
+			.left_hook
+				h2 Account
+			br
+			div(class="alert alert-error", id="invalid")
+				p Something went wrong with your request
+			div(class="alert alert-success", id="success")
+				p <strong>Success!</strong> Your account was updated
+			.hold_l
 				.left_hook
-					h2 Account
+					h6 Update Email <span class="tiny">#{user.email}</span>
 				br
-				div(class="alert alert-error", id="invalid")
-					p Something went wrong with your request
-				div(class="alert alert-success", id="success")
-					p <strong>Success!</strong> Your account was updated
-				.hold_l
+				form(action="/account/email", method="post")
+					input(type="email", name="email", autocomplete="on", placeholder="New Email", id="newe", class="signinup")
 					.left_hook
-						h6 Update Email <span class="tiny">#{user.email}</span>
+						input(type="submit", name="submit", class="btn btn-info", value="Update", id="newemail", disabled)
+			.hold_r
+				ul(class="account")
+					<a href="/"><li>Home</li></a>
+					<a href="/upload"><li>Upload</li></a>
+					<a href="/likes"><li>Likes</li></a>
+					<a href="/posts"><li>Posts</li></a>
+					<a href="/signout"><li>Sign Out</li></a>
+			.hold_l
+				.left_hook
+					h6 Update Password
+				br
+				form(action="/account/password", method="post")
+					input(type="password", name="oldp", placeholder="Old Password", class="signinup", id="oldp", pattern=".{8,}")
+					input(type="password", name="newp", placeholder="New Password", class="signinup", id="newp", pattern=".{8,}")
+					.pass 
+						hr
+						| Your password can be broken in 
+						#time
+							| less than one second
+						hr
+					.left_hook
+						input(type="submit", name="submit", class="btn btn-info", value="Update", id="newpass", disabled)
+			.hold_l
+				.left_hook
+					h6 Name <span class="tiny">#{user.name}</span>
+				br
+				if user.name != ''
+					div(class="alert alert-info")
+						p If you wish to remove your name, submit an empty form.
+				form(action="/account/name", method="post")
+					input(type="text", name="fname", placeholder="First Name", class="signinup", id="fname")
+					input(type="text", name="lname", placeholder="Last Name", class="signinup", id="lname")
+					.left_hook
+						input(type="submit", name="submit", class="btn btn-info", value="Update", id="newname")
+			.hold_l
+				.left_hook
+					h6 Delete Account
 					br
-					form(action="/account/email", method="post")
-						input(type="email", name="email", autocomplete="on", placeholder="New Email", id="newe", class="signinup")
-						.left_hook
-							input(type="submit", name="submit", class="btn btn-info", value="Update", id="newemail", disabled)
-				.hold_r
-					ul(class="account")
-						<a href="/"><li>Home</li></a>
-						<a href="/upload"><li>Upload</li></a>
-						<a href="/likes"><li>Likes</li></a>
-						<a href="/posts"><li>Posts</li></a>
-						<a href="/signout"><li>Sign Out</li></a>
-				.hold_l
-					.left_hook
-						h6 Update Password
-					br
-					form(action="/account/password", method="post")
-						input(type="password", name="oldp", placeholder="Old Password", class="signinup", id="oldp", pattern=".{8,}")
-						input(type="password", name="newp", placeholder="New Password", class="signinup", id="newp", pattern=".{8,}")
-						.pass 
-							hr
-							| Your password can be broken in 
-							#time
-								| less than one second
-							hr
-						.left_hook
-							input(type="submit", name="submit", class="btn btn-info", value="Update", id="newpass", disabled)
-				.hold_l
-					.left_hook
-						h6 Name <span class="tiny">#{user.name}</span>
-					br
-					if user.name != ''
-						div(class="alert alert-info")
-							p If you wish to remove your name, submit an empty form.
-					form(action="/account/name", method="post")
-						input(type="text", name="fname", placeholder="First Name", class="signinup", id="fname")
-						input(type="text", name="lname", placeholder="Last Name", class="signinup", id="lname")
-						.left_hook
-							input(type="submit", name="submit", class="btn btn-info", value="Update", id="newname")
-				.hold_l
-					.left_hook
-						h6 Delete Account
+					form(action="/account/delete", method="post")
+						input(type="checkbox", name="check", id="check")
+						span(class="check")  Are you positive?
+						input(type="checkbox", name="check", id="check2")
+						span(class="check2")  Absolutely sure?
 						br
-						form(action="/account/delete", method="post")
-							input(type="checkbox", name="check", id="check")
-							span(class="check")  Are you positive?
-							input(type="checkbox", name="check", id="check2")
-							span(class="check2")  Absolutely sure?
-							br
-							br
-							input(type="submit", name="submit", class="btn btn-danger", value="Delete Account Forever", disabled)
+						br
+						input(type="submit", name="submit", class="btn btn-danger", value="Delete Account Forever", disabled)

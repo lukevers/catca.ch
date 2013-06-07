@@ -11,23 +11,20 @@ html
 			script(src="/js/common.js")
 			script(src="/js/user.js")
 	body
-		if loggedin == "true"
-			meta(HTTP-EQUIV="REFRESH", content="0; url=/user/account")
-		else
-			.center
-				h1 Sign In
-				br
-				div(class="alert alert-error", id="invalid")
-					p Invalid username or password
-				div(class="alert alert-error", id="not_logged_in")
-					p You must be logged in to do that
-				form(action="/signin", method="post", class="form", name="signinform")
-					input(type="text", name="unamemail", autocomplete="on", placeholder="Username or Email", class="signinup", autofocus)
-					input(type="password", name="password", placeholder="Password", class="signinup")
-					.left_hook
-						input(type="submit", name="submit", class="btn btn-info", value="Sign In")	
-				br
-				.center_h
-					<a href="/">Home</a> -
-					<a href="/recover">Forgot your password?</a> -
-					<a href="/signup">Sign up</a>
+		.center
+			h1 Sign In
+			br
+			div(class="alert alert-error", id="invalid")
+				p Invalid username or password
+			div(class="alert alert-error", id="not_logged_in")
+				p You must be logged in to do that
+			form(action="/signin", method="post", class="form", name="signinform")
+				input(type="text", name="unamemail", autocomplete="on", placeholder="Username or Email", class="signinup", autofocus)
+				input(type="password", name="password", placeholder="Password", class="signinup")
+				.left_hook
+					input(type="submit", name="submit", class="btn btn-info", value="Sign In")	
+			br
+			.center_h
+				<a href="/">Home</a> -
+				<a href="/recover">Forgot your password?</a> -
+				<a href="/signup">Sign up</a>

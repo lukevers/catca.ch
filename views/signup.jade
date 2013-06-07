@@ -12,34 +12,31 @@ html
 			script(src="/js/user.js")
 			script(src="/js/password_strength.js")
 	body
-		if loggedin == "true"
-			meta(HTTP-EQUIV="REFRESH", content="0; url=/user/account")
-		else
-			.center
-				h1 Sign Up
-				br
-				div(class="alert alert-error", id="invalid")
-					p The username or email has already been taken.
-				div(class="alert alert-error", id="invalid_passwords")
-					p Your passwords somehow did not match.
-				form(action="/signup", method="post", class="form signupform", name="signupform")
-					input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup", id="email", autofocus)
-					input(type="text", name="username", autocomplete="off", placeholder="Username", id="username", class="signinup")
-					input(type="password", name="password", placeholder="Password", id="password", class="signinup", pattern=".{8,}")
-					input(type="password", name="c_password", placeholder="Confirm Password", id="c_password", class="signinup", pattern=".{8,}")
-					.pass 
-						hr
-						| Your password can be broken in 
-						#time
-							| less than one second
-						hr
-					.left_hook
-						input(type="checkbox", id="terms") 
-						|  I agree to the <a href="#">Terms and Conditions</a>
-						br
-						br
-						input(type="submit", name="submit", id="signup", class="btn btn-info", value="Sign Up", disabled)
-				br
-				.center_h
-					<a href="/">Home</a> -
-					<a href="/signin">Already have an account?</a>
+		.center
+			h1 Sign Up
+			br
+			div(class="alert alert-error", id="invalid")
+				p The username or email has already been taken.
+			div(class="alert alert-error", id="invalid_passwords")
+				p Your passwords somehow did not match.
+			form(action="/signup", method="post", class="form signupform", name="signupform")
+				input(type="email", name="email", autocomplete="on", placeholder="Email", class="signinup", id="email", autofocus)
+				input(type="text", name="username", autocomplete="off", placeholder="Username", id="username", class="signinup")
+				input(type="password", name="password", placeholder="Password", id="password", class="signinup", pattern=".{8,}")
+				input(type="password", name="c_password", placeholder="Confirm Password", id="c_password", class="signinup", pattern=".{8,}")
+				.pass 
+					hr
+					| Your password can be broken in 
+					#time
+						| less than one second
+					hr
+				.left_hook
+					input(type="checkbox", id="terms") 
+					|  I agree to the <a href="#">Terms and Conditions</a>
+					br
+					br
+					input(type="submit", name="submit", id="signup", class="btn btn-info", value="Sign Up", disabled)
+			br
+			.center_h
+				<a href="/">Home</a> -
+				<a href="/signin">Already have an account?</a>
