@@ -22,12 +22,12 @@ html
 				p <strong>Success!</strong> Your account was updated
 			.hold_l
 				.left_hook
-					h6 Update Email <span class="tiny">#{user.email}</span>
+					h6 Username
 				br
-				form(action="/account/email", method="post")
-					input(type="email", name="email", autocomplete="on", placeholder="New Email", id="newe", class="signinup")
+				form
+					input(type="text", placeholder="#{user.username}", class="signinup", disabled)
 					.left_hook
-						input(type="submit", name="submit", class="btn btn-info", value="Update", id="newemail", disabled)
+						input(type="submit", class="btn btn-info", value="Can't change", disabled)
 			.hold_r
 				ul(class="account")
 					<a href="/"><li>Home</li></a>
@@ -35,6 +35,14 @@ html
 					<a href="/likes"><li>Likes</li></a>
 					<a href="/posts"><li>Posts</li></a>
 					<a href="/signout"><li>Sign Out</li></a>
+			.hold_l
+				.left_hook
+					h6 Update Email <span class="tiny">#{user.email}</span>
+				br
+				form(action="/account/email", method="post")
+					input(type="email", name="email", autocomplete="on", placeholder="New Email", id="newe", class="signinup")
+					.left_hook
+						input(type="submit", name="submit", class="btn btn-info", value="Update", id="newemail", disabled)
 			.hold_l
 				.left_hook
 					h6 Update Password
