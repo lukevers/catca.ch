@@ -9,6 +9,7 @@
   "dependencies": {
     "express": "3.2.5",
     "mongojs": "0.7.5",
-    "jade": "0.31.1"
+    "jade": "0.31.1",
+    "kittydar": "0.1.6"
   }
 }
