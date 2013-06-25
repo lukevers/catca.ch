@@ -14,51 +14,42 @@ module.exports = function(app, db) {
 
 	// Sign Up
 	app.post('/signup', function(req, res) {
-		// Only users that are signed out can create new accounts
-		// So if someone is signed in, redirect them to their account
-		if (typeof req.session.user == 'undefined') {
-			// First check if username/email is already used.
-			db.users.find({username: req.body.username}, function(err, users) {
-				if (err || users.length == 0) {
-					// User does not exist -- check email
-					db.users.find({email: req.body.email}, function(errs, emails) {
-						if (errs || emails.length == 0) {
-							// Email does not exist -- check for password correctness of the two.
-							// It will not let you submit if both are wrong, but there's a chance
-							// Someone could edit the javascript and fuck things up -- so we want
-							// To double check anyways.
-							if (req.body.password == req.body.c_password) {
-								var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password), name: ''};
-								db.users.save(newuser, function(err, saved) {
-									if(err || !saved) {
-										util.log(req.ip+ ' tried to create a new user, '+req.body.username+', but recieved an error.');
-										res.redirect('/signup#error');
-									} else {
-										util.log(req.ip+' created a new user: '+req.body.username);
-										res.redirect('/signin');
-									}
-								});
-							} else {
-								// Passwords do not match	
-								util.log(req.ip+' tried to create an account with two unequal passwords');
-								res.redirect('/signup#invalid_password');
-							}
-						} else {
-							// Email exists	
-							util.log(req.ip+' tried to create an account with an email that is already taken: '+req.body.email);
-							res.redirect('/signup#invalid');
-						}
-					});
-				} else {
-					// User exists
-					util.log(req.ip+' tried to create an account with a username that is already taken: '+req.body.username);
-					res.redirect('/signup#invalid');
-				}
-			});
-		} else {
+		if (hasSession(req.session.user)) {
 			// User is currently signed in and trying to sign up
 			util.log(req.ip+' tried to sign up when they are already signed in.');
 			res.redirect('/account');
+		} else {
+			var u = req.body.username;
+			var e = req.body.email;
+			var p = req.body.password;
+			var p2 = req.body.c_password;
+			if (userExists(u)) {
+				// User exists
+				util.log(req.ip+' tried to create an account with a username that is already taken: '+req.body.username);
+				res.redirect('/signup#invalid');
+			} else if (emailExists(e)) {
+				// Email exists
+				util.log(req.ip+' tried to create an account with an email that is already taken: '+req.body.email);
+				res.redirect('/signup#invalid');
+			} else {
+				if (req.body.password != req.body.c_password) {
+					// Passwords do not match	
+					util.log(req.ip+' tried to create an account with two unequal passwords');
+					res.redirect('/signup#invalid_password');
+				} else {
+					// Passwords match
+					var newuser = {email: req.body.email, username: req.body.username, password: pwd.saltAndHash(req.body.password), name: '', status: 'Newborn Kitten'};
+					db.users.save(newuser, function(err, saved) {
+						if(err || !saved) {
+							util.log(req.ip+ ' tried to create a new user, '+req.body.username+', but recieved an error.');
+							res.redirect('/signup#error');
+						} else {
+							util.log(req.ip+' created a new user: '+req.body.username);
+							res.redirect('/signin');
+						}
+					});
+				}
+			}
 		}
 	});
 	
@@ -266,5 +257,25 @@ module.exports = function(app, db) {
 			res.redirect('/signout');
 		}
 	});
+	
+	// ================================================================================ //
+	// ================================================================================ //
+	// ================================================================================ //
+	
+	function emailExists(e) {
+		db.users.find({email: e}, function(err, emails) {
+			return (err || emails.length == 0) ? false : true;
+		});
+	}
+	
+	function userExists(u) {
+		db.users.find({username: u}, function(err, users) {
+			return (err || users.length == 0) ? false : true;
+		});
+	}
+	
+	function hasSession(s) {
+		return !(s === undefined);
+	}
 	
 }
