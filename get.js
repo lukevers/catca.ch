@@ -44,6 +44,12 @@ module.exports = function(app, db) {
 		else res.render('upload', { 'user': req.session.user });
 	});
 	
+	// Status	
+	app.get('/status', function(req, res) {
+		if (typeof req.session.user == 'undefined') res.render('status', { 'loggedin': 'false' });
+		else res.render('status', { 'loggedin': 'true', 'user': req.session.user });
+	});
+	
 	// Liked By
 	app.get('/liked/by/*', function(req, res) {
 		
