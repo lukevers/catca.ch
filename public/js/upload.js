@@ -2,7 +2,7 @@
 //  Cat Cache!
 //  ----------
 //  
-//  common.js
+//  upload.js
 //
 // © 2013 Cat Cache!
 

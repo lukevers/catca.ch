@@ -16,15 +16,15 @@ html
 				h2 Upload
 			br
 			.hold_l
+				.left_hook
+						i Not working? Try our <a href="/upload_basic">basic uploader</a>
+				br
 				form(action="/account/email", method="post")
 					input(type="file", multiple="multiple", accept="image/*", id="filebrowse")
 					.left_hook
 						div(class="btn", id="choose") Choose Files
 						div(class="btn btn-info", id="upload") Upload Files
-						.files
-					br
-					.left_hook
-						i Not working? Try our <a href="/upload_basic">basic uploader</a>
+						.files					
 			.hold_r
 				ul(class="account")
 					<a href="/"><li>Home</li></a>

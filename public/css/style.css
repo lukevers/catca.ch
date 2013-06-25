@@ -254,3 +254,7 @@ ul.account a li:hover {
 .files .alert {
 	margin: 5px;
 }
+
+.left_hook i {
+	color: #AAA;
+}
