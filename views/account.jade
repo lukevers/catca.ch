@@ -37,6 +37,14 @@ html
 					<a href="/signout"><li>Sign Out</li></a>
 			.hold_l
 				.left_hook
+					h6 Status
+				br
+				form(action="/status")
+					input(type="text", placeholder="#{user.status}", class="signinup", disabled)
+					.left_hook
+						input(type="submit", class="btn btn-info", value="Learn More About Your Status")
+			.hold_l
+				.left_hook
 					h6 Update Email <span class="tiny">#{user.email}</span>
 				br
 				form(action="/account/email", method="post")
